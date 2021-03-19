@@ -1,8 +1,10 @@
 // aqui vai o código que acessa o banco de dados
+const Users = require("../db/UsersDb");
 
 const getAllUsers = (req, res) => {
+  Users.getAll(req, res);
   console.log("Get Users =)");
-  res.send("Request User feita");
+  res.send("Buscar todos usuários");
 };
 const getUserId = (req, res) => {
   console.log("Get Users Id =)");
@@ -10,8 +12,9 @@ const getUserId = (req, res) => {
 };
 
 const postUsers = (req, res) => {
+  Users.userCreate(req, res);
   console.log("Post Users =)");
-  res.send("Request feita");
+  res.send("Usuário criado com sucesso");
 };
 
 const putUsers = (req, res) => {
