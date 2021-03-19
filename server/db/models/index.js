@@ -1,5 +1,8 @@
 "use strict";
 
+//const dotenv = require("dotenv");
+//dotenv.config();
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -20,16 +23,15 @@ if (config.use_env_variable) {
   );
 }
 
-async function dbPostgres() {
-  try {
-    await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-}
-
-dbPostgres();
+// async function teste() {
+//   try {
+//     await sequelize.authenticate();
+//     console.log("Connection has been established successfully.");
+//   } catch (error) {
+//     console.error("Unable to connect to the database:", error);
+//   }
+// }
+// teste()
 
 fs.readdirSync(__dirname)
   .filter((file) => {
