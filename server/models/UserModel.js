@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 
-const db = require("../db/index");
+const sequelize = require("../db/index");
 
-const User = db.define("users", {
+const User = sequelize.define("users", {
   name: DataTypes.STRING,
   email: DataTypes.STRING,
   password: DataTypes.STRING,
@@ -14,4 +14,4 @@ const init = async () => {
 };
 init();
 
-module.exports = { User };
+module.exports = User;

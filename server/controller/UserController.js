@@ -1,30 +1,41 @@
 // aqui vai o código que acessa o banco de dados
-const Users = require("../db/UsersDb");
+const User = require("../models/UserModel");
 
-const getAllUsers = (req, res) => {
-  Users.getAll(req, res);
-  console.log("Get Users =)");
-  res.send("Buscar todos usuários");
-};
-const getUserId = (req, res) => {
-  console.log("Get Users Id =)");
-  res.send("Request feita");
-};
+const UserController = {
+  getAllUsers(req, res) {
+    User.findAll()
+      .then((result) => {
+        res.json(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 
-const postUsers = (req, res) => {
-  Users.userCreate(req, res);
-  console.log("Post Users =)");
-  res.send("Usuário criado com sucesso");
-};
+  getUserId(req, res) {
+    console.log("Get Users Id =)");
+    res.send("Request feita");
+  },
 
-const putUsers = (req, res) => {
-  console.log("Put Usersr =)");
-  res.send("Request feita");
-};
+  postUsers(req, res) {
+    const { name, email, password, role } = req.body;
+    User.create({ name, email, password, role })
+      .then((result) => {
+        res.status(200).json(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 
-const deleteUsers = (req, res) => {
-  console.log("Delete Users =)");
-  res.send("Request feita");
-};
+  putUsers(req, res) {
+    console.log("Put Usersr =)");
+    res.send("Request feita");
+  },
 
-module.exports = { getAllUsers, getUserId, postUsers, putUsers, deleteUsers };
+  deleteUsers(req, res) {
+    console.log("Delete Users =)");
+    res.send("Request feita");
+  },
+};
+module.exports = UserController;
