@@ -12,7 +12,18 @@ const UserController = {
     }
   },
 
-  async getUserId(req, res) {},
+  async getUserId(req, res) {
+    try {
+      const id = req.params;
+      const user = await User.findOne({
+        where: id,
+      });
+      res.status(200).send(user);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("deu ruim");
+    }
+  },
 
   async postUsers(req, res) {
     try {

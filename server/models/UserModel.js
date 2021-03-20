@@ -3,7 +3,6 @@ const { DataTypes, Sequelize } = require("sequelize");
 const sequelize = require("../db/index");
 
 const User = sequelize.define("users", {
-  //id: Sequelize.UUIDV4,
   name: DataTypes.STRING,
   email: DataTypes.STRING,
   password: DataTypes.STRING,
@@ -13,6 +12,6 @@ const User = sequelize.define("users", {
 const init = async () => {
   await User.sync();
 };
-//init();
+init();
 
 module.exports = User;
