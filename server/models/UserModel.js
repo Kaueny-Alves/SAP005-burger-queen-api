@@ -1,6 +1,6 @@
-const { DataTypes, Sequelize } = require("sequelize");
+const { DataTypes } = require("sequelize");
 
-const sequelize = require("../db/index");
+const sequelize = require("../database/index");
 
 const User = sequelize.define("users", {
   name: DataTypes.STRING,
@@ -12,6 +12,6 @@ const User = sequelize.define("users", {
 const init = async () => {
   await User.sync();
 };
-init();
+//init();
 
 module.exports = User;

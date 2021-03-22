@@ -1,10 +1,8 @@
-// aqui vai o código que acessa o banco de dados
 const User = require("../models/UserModel");
 
 const UserController = {
   async getAllUsers(req, res) {
     try {
-      // const token = req.params;
       const users = await User.findAll();
       res.status(200).send(users);
     } catch (error) {
@@ -45,7 +43,7 @@ const UserController = {
           where: id,
         }
       );
-      res.status(200).send("deu bom");
+      res.status(200).send("dados alterados");
     } catch (error) {
       console.log(error);
       res.status(400).send("deu ruim");
@@ -58,7 +56,7 @@ const UserController = {
       await User.destroy({
         where: id,
       });
-      res.status(200).send("deu bom");
+      res.status(200).send("usuário deletado");
     } catch (error) {
       console.log(error);
       res.status(400).send("deu ruim");
