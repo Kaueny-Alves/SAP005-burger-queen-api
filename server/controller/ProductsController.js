@@ -1,34 +1,69 @@
-// aqui vai o código que acessa o banco de dados
+const Products = require("../models/ProductsModel");
 
-const getAllProducts = (req, res) => {
-  console.log("Get Products =)");
-  res.send("Request Product feita");
+const ProductsController = {
+  async getAllProducts(req, res) {
+    try {
+      const products = await Products.findAll();
+      res.status(200).send(products);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async getProductId(req, res) {
+    try {
+      const id = req.params;
+      const product = await Products.findOne({
+        where: id,
+      });
+      res.status(200).send(product);
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("deu ruim");
+    }
+  },
+
+  async postProducts(req, res) {
+    try {
+      const { name, price, flavor, complement, image,  sub_type, type } = req.body;
+      const product = await Products.create({name, price, flavor, complement, image,  sub_type, type });
+      res.status(200).send(product);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async putProducts(req, res) {
+    try {
+      const { name, price, flavor, complement, image,  sub_type, type } = req.body;
+
+      const id = req.params;
+      await Products.update(
+        {name, price, flavor, complement, image,  sub_type, type },
+        {
+          where: id,
+        }
+      );
+      res.status(200).send("dados alterados");
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("deu ruim");
+    }
+  },
+
+  async deleteProducts(req, res) {
+    try {
+      const id = req.params;
+      await Products.destroy({
+        where: id,
+      });
+      res.status(200).send("produto deletado");
+    } catch (error) {
+      console.log(error);
+      res.status(400).send("deu ruim");
+    }
+
+  },
 };
 
-const getProductId = (req, res) => {
-  console.log("Get Products Id =)");
-  res.send("Request feita");
-};
-
-const postProducts = (req, res) => {
-  console.log("Post Products =)");
-  res.send("Request feita");
-};
-
-const putProducts = (req, res) => {
-  console.log("Put Products =)");
-  res.send("Request feita");
-};
-
-const deleteProducts = (req, res) => {
-  console.log("Delete Products =)");
-  res.send("Request feita");
-};
-
-module.exports = {
-  getAllProducts,
-  getProductId,
-  postProducts,
-  putProducts,
-  deleteProducts,
-};
+module.exports = ProductsController;

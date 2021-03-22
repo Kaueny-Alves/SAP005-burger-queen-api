@@ -1,12 +1,19 @@
 const { DataTypes } = require("sequelize");
+const sequelize = require("../database/index");
 
-const db = require("../db/index");
-
-const Products = db.define("products", {});
+const Products = sequelize.define("products", {
+  name: DataTypes.STRING,
+  price: DataTypes.INTEGER,
+  flavor: DataTypes.STRING,
+  complement: DataTypes.STRING,
+  image: DataTypes.STRING,
+  sub_type: DataTypes.STRING,
+  type: DataTypes.STRING,
+});
 
 const init = async () => {
   await Products.sync();
 };
-init();
+//init();
 
-module.exports = { Products };
+module.exports =  Products ;
