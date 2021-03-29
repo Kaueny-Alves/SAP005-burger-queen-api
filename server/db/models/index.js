@@ -1,12 +1,12 @@
-/* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'production';
-const config = require(`${__dirname}/../config/config.json`)[env];
+const env = process.env.NODE_ENV || 'development';
+const config = require(`${__dirname}/../config/config.js`)[env];
 const db = {};
 
 let sequelize;
@@ -15,6 +15,16 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
+
+async function test() {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+test();
 
 fs
   .readdirSync(__dirname)
